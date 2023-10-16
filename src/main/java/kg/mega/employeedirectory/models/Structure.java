@@ -1,0 +1,25 @@
+package kg.mega.employeedirectory.models;
+
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Structure {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+    String name;
+    boolean isActive;
+    @ManyToOne
+
+    StructureType structureType;
+    @ManyToOne
+    @JoinColumn(name = "parent_structure_id")
+    Structure parentStructure;
+}
