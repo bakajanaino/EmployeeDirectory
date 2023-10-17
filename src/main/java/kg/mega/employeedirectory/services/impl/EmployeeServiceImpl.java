@@ -33,16 +33,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findEmployeeByEmail(String email){
         return employeeRepo.findEmployeeByEmailContainingIgnoreCase(email);
     }
-    public List<Employee> findEmployeeByStatus(String status){
-        return employeeRepo.findEmployeeByStatusIgnoreCase(status);
-    }
 
     public List<Employee> findEmployeeByStructure(String name){
         return employeeRepo.findEmployeeByStructure(name);
     }
-    @Override
-    public List<Employee> findEmployeeByPositions (String name){
-         return employeeRepo.findEmployeeByPositions(name);
+    
+    public Employee findEmployeeByPhoneNumber(String phoneNumber){
+        return employeeRepo.findEmployeeByPhoneNumber(phoneNumber);
     }
 
 }

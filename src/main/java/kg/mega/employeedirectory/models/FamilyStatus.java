@@ -3,6 +3,7 @@ package kg.mega.employeedirectory.models;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
@@ -12,19 +13,13 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Employee {
+public class FamilyStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String fullName;
+    String familyStatus;
     LocalDate startDate;
     LocalDate endDate;
-    @ManyToOne
-    Structure structure;
-    String phoneNumber;
-    String email;
-    String photoUrl;
     @ManyToMany(mappedBy = "employee_id")
-    FamilyStatus familyStatus;
-
+    Employee employee;
 }

@@ -30,8 +30,16 @@ public class EmployeeController {
         return employeeService.findEmployeeByEmail(email);
     }
     @GetMapping("/findByStatus")
-    public List<Employee> findByStatus(@RequestParam String status){
+    public List<Employee> findByStatus(@RequestParam String status) {
         return employeeService.findEmployeeByStatus(status);
+    }
+    @GetMapping("/findByPosition")
+    public List<Employee> findByPosition(@RequestParam String name){
+        return employeeService.findEmployeeByPositions(name);
+    }
+    @GetMapping("/findByNumber")
+    public Employee findByNumber(@RequestParam String phoneNumber){
+        return employeeService.findEmployeeByPhoneNumber(phoneNumber);
     }
 
 

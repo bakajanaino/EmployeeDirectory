@@ -4,27 +4,21 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
-
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Employee {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String fullName;
-    LocalDate startDate;
-    LocalDate endDate;
+    String userName;
+    String password;
     @ManyToOne
-    Structure structure;
-    String phoneNumber;
-    String email;
-    String photoUrl;
-    @ManyToMany(mappedBy = "employee_id")
-    FamilyStatus familyStatus;
+    Employee employee;
+
+
 
 }

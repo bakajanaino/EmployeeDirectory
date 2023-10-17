@@ -11,13 +11,8 @@ import java.util.List;
 @Repository
 public interface EmployeeRepo extends JpaRepository<Employee, Long> {
     List<Employee> findEmployeeByFullNameContainingIgnoreCase(String employeeName);
-
     List<Employee> findEmployeeByEmailContainingIgnoreCase(String email);
-
-    List<Employee> findEmployeeByStatusIgnoreCase(String status);
-
     @Query(value = "SELECT e.* FROM employee e JOIN structure s ON e.structure_id = s.id WHERE LOWER(s.name) = LOWER(:name)", nativeQuery = true)
     List<Employee> findEmployeeByStructure(String name);
-    @Query(value = "SELECT e.*FROM employee e JOIN positions p ON e.positions_id = p.id WHERE LOWER(p.name) = LOWER(:name)", nativeQuery = true)
-    List<Employee> findEmployeeByPositions (String name);
+    Employee findEmployeeByPhoneNumber(String phoneNumber);
 }

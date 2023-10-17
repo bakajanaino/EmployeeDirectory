@@ -12,19 +12,14 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Employee {
+public class EmployeeStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String fullName;
+    @ManyToOne
+    Employee employee;
+    @ManyToOne
+    Status status;
     LocalDate startDate;
     LocalDate endDate;
-    @ManyToOne
-    Structure structure;
-    String phoneNumber;
-    String email;
-    String photoUrl;
-    @ManyToMany(mappedBy = "employee_id")
-    FamilyStatus familyStatus;
-
 }
