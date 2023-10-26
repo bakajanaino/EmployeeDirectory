@@ -1,9 +1,11 @@
 package kg.mega.employeedirectory.models;
 
-import jakarta.persistence.*;
+import kg.mega.employeedirectory.models.enums.FamilyStatus;
+import kg.mega.employeedirectory.models.enums.Status;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -17,14 +19,17 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String fullName;
+    LocalDate employmentDate;
+    LocalDate dismissalDate;
     LocalDate startDate;
     LocalDate endDate;
-    @ManyToOne
-    Structure structure;
     String phoneNumber;
     String email;
     String photoUrl;
-    @ManyToMany(mappedBy = "employee_id")
+    @Enumerated(EnumType.STRING)
+    Status status;
+    @Enumerated(EnumType.STRING)
     FamilyStatus familyStatus;
+
 
 }

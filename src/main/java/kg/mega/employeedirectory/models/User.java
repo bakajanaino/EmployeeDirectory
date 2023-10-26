@@ -1,8 +1,10 @@
 package kg.mega.employeedirectory.models;
-
-import jakarta.persistence.*;
+import kg.mega.employeedirectory.models.dtos.RegistrationDto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -10,6 +12,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Table(name = "tb_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +21,13 @@ public class User {
     String password;
     @ManyToOne
     Employee employee;
+    LocalDate startDate;
 
 
+    public User(RegistrationDto registrationDto) {
+
+        this.password = registrationDto.getPassword();
+        this.userName = registrationDto.getUsername();
+    }
 
 }

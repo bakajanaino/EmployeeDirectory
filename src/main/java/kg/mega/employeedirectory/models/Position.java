@@ -1,9 +1,7 @@
 package kg.mega.employeedirectory.models;
-
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.repository.cdi.Eager;
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -11,7 +9,7 @@ import org.springframework.data.repository.cdi.Eager;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Positions {
+public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -20,6 +18,6 @@ public class Positions {
     Structure structure;
     @ManyToOne
     @JoinColumn(name = "parent_position_id")
-    Positions parenPosition;
+    Position parenPosition;
 
 }
