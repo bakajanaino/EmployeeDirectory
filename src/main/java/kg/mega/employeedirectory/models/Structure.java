@@ -1,6 +1,5 @@
 package kg.mega.employeedirectory.models;
-
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -17,7 +16,6 @@ public class Structure {
     String name;
     boolean isActive;
     @ManyToOne
-
     StructureType structureType;
     @ManyToOne
     @JoinColumn(name = "parent_structure_id")

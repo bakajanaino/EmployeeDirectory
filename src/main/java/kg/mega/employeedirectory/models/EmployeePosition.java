@@ -1,10 +1,7 @@
 package kg.mega.employeedirectory.models;
-
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.cglib.core.Local;
-
 import java.time.LocalDate;
 
 @Entity
@@ -20,7 +17,7 @@ public class EmployeePosition {
     @ManyToOne
     Employee employee;
     @ManyToOne
-    Positions positions;
+    Position position;
     @ManyToOne
     Structure structure;
     LocalDate startDate;

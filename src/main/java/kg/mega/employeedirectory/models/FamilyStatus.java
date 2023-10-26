@@ -1,10 +1,7 @@
 package kg.mega.employeedirectory.models;
-
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.cglib.core.Local;
-
 import java.time.LocalDate;
 
 @Entity
@@ -20,6 +17,6 @@ public class FamilyStatus {
     String familyStatus;
     LocalDate startDate;
     LocalDate endDate;
-    @ManyToMany(mappedBy = "employee_id")
+    @ManyToOne
     Employee employee;
 }

@@ -1,6 +1,7 @@
 package kg.mega.employeedirectory.controllers;
 
 import kg.mega.employeedirectory.models.Employee;
+import kg.mega.employeedirectory.models.dtos.EmployeeInfoDto;
 import kg.mega.employeedirectory.services.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +18,6 @@ public class EmployeeController {
     public Employee saveEmployee(@RequestBody Employee employee){
         return employeeService.saveEmployee(employee);
     }
-    @GetMapping("/findByName")
-    public List<Employee> findByName(@RequestParam String fullName){
-       return employeeService.findEmployeeByName(fullName);
-    }
     @GetMapping("/findByStructure")
     public List<Employee>findByStructure(@RequestParam String name){
         return employeeService.findEmployeeByStructure(name);
@@ -31,15 +28,18 @@ public class EmployeeController {
     }
     @GetMapping("/findByStatus")
     public List<Employee> findByStatus(@RequestParam String status) {
-        return employeeService.findEmployeeByStatus(status);
+        //TODO
+        return null;
     }
     @GetMapping("/findByPosition")
     public List<Employee> findByPosition(@RequestParam String name){
-        return employeeService.findEmployeeByPositions(name);
+        //TODO
+        return null;
     }
-    @GetMapping("/findByNumber")
-    public Employee findByNumber(@RequestParam String phoneNumber){
-        return employeeService.findEmployeeByPhoneNumber(phoneNumber);
+
+    @GetMapping("/fullInfoByName")
+    public List<EmployeeInfoDto> fullInfoByName(String fullName) throws Exception{
+        return employeeService.getFullEmployeeInfoByName(fullName);
     }
 
 

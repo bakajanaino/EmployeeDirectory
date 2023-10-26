@@ -1,9 +1,9 @@
 package kg.mega.employeedirectory.models;
 
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -17,14 +17,13 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String fullName;
+    LocalDate employmentDate;
+    LocalDate dismissalDate;
     LocalDate startDate;
     LocalDate endDate;
-    @ManyToOne
-    Structure structure;
     String phoneNumber;
     String email;
     String photoUrl;
-    @ManyToMany(mappedBy = "employee_id")
-    FamilyStatus familyStatus;
+
 
 }

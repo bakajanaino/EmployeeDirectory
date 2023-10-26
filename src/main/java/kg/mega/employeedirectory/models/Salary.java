@@ -1,9 +1,7 @@
 package kg.mega.employeedirectory.models;
-
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import java.time.LocalDate;
 
 @Entity
