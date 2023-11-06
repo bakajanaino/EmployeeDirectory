@@ -1,6 +1,8 @@
 package kg.mega.employeedirectory.models.dtos;
 
 import kg.mega.employeedirectory.models.*;
+import kg.mega.employeedirectory.models.enums.FamilyStatus;
+import kg.mega.employeedirectory.models.enums.Status;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -14,14 +16,14 @@ public class EmployeeInfoDto {
     String structure;
     String phoneNumber;
     String email;
-    String status;
-    String familyStatus;
+    Status status;
+    FamilyStatus familyStatus;
     String photoUrl;
     LocalDate hireDate;
     LocalDate dismissalDate;
 
 
-    public EmployeeInfoDto(Employee employee, EmployeePosition position, Structure structure) {
+    public EmployeeInfoDto(Employee employee, EmployeePosition position, Structure structure, FamilyStatus familyStatus, Status status) {
         this.id=employee.getId();
         this.fullName=employee.getFullName();
         this.position=position.getPosition().getName();
@@ -31,6 +33,8 @@ public class EmployeeInfoDto {
         this.photoUrl=employee.getPhotoUrl();
         this.hireDate=employee.getEmploymentDate();
         this.dismissalDate=employee.getDismissalDate();
+        this.status=status;
+        this.familyStatus=familyStatus;
     }
     public EmployeeInfoDto(){}
 

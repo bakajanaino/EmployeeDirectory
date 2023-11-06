@@ -2,6 +2,7 @@ package kg.mega.employeedirectory.models;
 import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.context.annotation.Configuration;
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -18,6 +19,8 @@ public class Position {
     Structure structure;
     @ManyToOne
     @JoinColumn(name = "parent_position_id")
-    Position parenPosition;
+    Position parentPosition;
+    @Column(name = "isActive")
+    boolean isActive;
 
 }

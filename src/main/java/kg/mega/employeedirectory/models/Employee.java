@@ -21,8 +21,6 @@ public class Employee {
     String fullName;
     LocalDate employmentDate;
     LocalDate dismissalDate;
-    LocalDate startDate;
-    LocalDate endDate;
     String phoneNumber;
     String email;
     String photoUrl;

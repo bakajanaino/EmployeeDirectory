@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/save")
+@RequestMapping("/api/v1/employee/save")
 
 public class SaveEmployeeController {
     private final SaveEmployeeService saveEmployeeService;

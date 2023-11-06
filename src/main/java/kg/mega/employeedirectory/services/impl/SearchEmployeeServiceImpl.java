@@ -2,11 +2,11 @@ package kg.mega.employeedirectory.services.impl;
 import kg.mega.employeedirectory.models.*;
 import kg.mega.employeedirectory.models.dtos.EmployeeInfoDto;
 import kg.mega.employeedirectory.models.enums.FamilyStatus;
+import kg.mega.employeedirectory.models.enums.Status;
 import kg.mega.employeedirectory.repos.*;
 import kg.mega.employeedirectory.services.SearchEmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,22 +25,12 @@ public class SearchEmployeeServiceImpl implements SearchEmployeeService {
     }
 
     @Override
-    public ResponseEntity<?> saveEmployee(Employee employee) throws Exception {
-        if (employee.getFullName().length() >= 2 && employee.getFullName().length() <= 50) {
-            if (employee.getPhoneNumber().startsWith("+996")) {
-                if (employee.getEmail().contains("@") && employee.getEmail().contains(".")) {
-                    return ResponseEntity.ok(employeeRepo.save(employee));
-                }
-                return ResponseEntity.badRequest().body("Данные указаны неверно");
-            }
-        }
-        return null;
+    public ResponseEntity<?> findEmployeeByEmail(String email) throws Exception {
+        List<Employee> employees = employeeRepo.findEmployeeByEmailContainingIgnoreCase(email);
+        return getAllEmployees(employees);
     }
 
-
-    @Override
-    public List<EmployeeInfoDto> findEmployeeByEmail(String email) throws Exception {
-        List<Employee> employees = employeeRepo.findEmployeeByEmailContainingIgnoreCase(email);
+    private ResponseEntity<?> getAllEmployees(List<Employee> employees) {
         List<EmployeeInfoDto> employeeInfoDtos = new ArrayList<>();
 
         for (Employee employee : employees) {
@@ -48,78 +38,58 @@ public class SearchEmployeeServiceImpl implements SearchEmployeeService {
         }
 
         if (employeeInfoDtos.isEmpty()) {
-            throw new Exception("Сотрудники не найдены.");
+            return ResponseEntity.badRequest().body("Сотрудники не найдены.");
         }
 
-        return employeeInfoDtos;
+        return ResponseEntity.ok(employeeInfoDtos);
     }
 
     @Override
-    public List<EmployeeInfoDto> findEmployeeByPhoneNumber(String phoneNumber) throws Exception {
+    public ResponseEntity<?> findEmployeeByPhoneNumber(String phoneNumber) throws Exception {
         List<Employee> employees = employeeRepo.findEmployeeByPhoneNumberContaining(phoneNumber);
-        List<EmployeeInfoDto> employeeInfoDtos = new ArrayList<>();
-        for(Employee employee : employees){
-            getFullInfo(employeeInfoDtos, employee);
-        }
-        if (employeeInfoDtos.isEmpty()) {
-            throw new Exception("Сотрудники не найдены.");
-        }
 
-        return employeeInfoDtos;
+        return getAllEmployees(employees);
     }
-
     @Override
-    public List<EmployeeInfoDto> findEmployeesByStructureNameIgnoreCase(String structureName) throws Exception {
+    public ResponseEntity<?> findEmployeesByStructureNameIgnoreCase(String structureName) throws Exception {
         List<Employee> employees = employeeRepo.findEmployeesByStructureNameIgnoreCase(structureName);
-        List<EmployeeInfoDto> employeeInfoDtos = new ArrayList<>();
-        for(Employee employee : employees){
-            getFullInfo(employeeInfoDtos, employee);
-        }
-        if(employeeInfoDtos.isEmpty()){
-            throw new Exception("Сотрудники не найдены");
-        }
-        return employeeInfoDtos;
+        return getAllEmployees(employees);
     }
-
     @Override
-    public List<EmployeeInfoDto> findEmployeesByPositionNameIgnoreCase(String positionName) throws Exception {
+    public ResponseEntity<?> findEmployeesByPositionNameIgnoreCase(String positionName) throws Exception {
         List<Employee> employees = employeeRepo.findEmployeesByPositionNameIgnoreCase(positionName);
-        List<EmployeeInfoDto> employeeInfoDtos = new ArrayList<>();
-        for (Employee employee: employees){
-            getFullInfo(employeeInfoDtos, employee);
-        }
-        if(employeeInfoDtos.isEmpty()){
-            throw new Exception("Сотрудники не найдены");
-        }
-        return employeeInfoDtos;
+        return getAllEmployees(employees);
     }
+    @Override
+    public ResponseEntity<?> findEmployeeByStatus(String stringStatus) {
+        stringStatus = stringStatus.toUpperCase();
+        List <Employee> employees = employeeRepo.findEmployeeByStatus(Status.valueOf(stringStatus));
+        return getAllEmployees(employees);
 
+    }
     private void getFullInfo(List<EmployeeInfoDto> employeeInfoDtos, Employee employee) {
         EmployeePosition employeePosition = employeePositionRepo.
                 findEmployeePositionByEmployeeFullNameContainingIgnoreCase(employee.getFullName())
                 .stream().findFirst().orElse(null);
-
-
+        Status status = employee.getStatus();
+        FamilyStatus familyStatus = employee.getFamilyStatus();
         if (employeePosition != null) {
             EmployeeInfoDto employeeInfoDto = new EmployeeInfoDto(employee, employeePosition,
-                    employeePosition.getStructure());
+                    employeePosition.getStructure(), familyStatus, status);
             employeeInfoDtos.add(employeeInfoDto);
         }
     }
-
     @Override
-    public List<EmployeeInfoDto> getFullEmployeeInfoByName(String fullName) throws Exception {
+    public ResponseEntity<?> getFullEmployeeInfoByName(String fullName) throws Exception {
         List<Employee> employees = employeeRepo.findEmployeeByFullNameContainingIgnoreCase(fullName);
         List<EmployeeInfoDto> employeeInfoDtos = new ArrayList<>();
-
         for (Employee employee : employees) {
             getFullInfo(employeeInfoDtos, employee);
         }
-
         if (!employeeInfoDtos.isEmpty()) {
-            return employeeInfoDtos;
+            return ResponseEntity.ok(employeeInfoDtos);
         } else {
-            throw new Exception("Сотрудники не найдены.");
+            return ResponseEntity.badRequest().body("Сотрудники не найдены.");
         }
     }
 }

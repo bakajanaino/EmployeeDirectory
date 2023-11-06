@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StructureTypeRepo extends JpaRepository<StructureType, Long> {
+    StructureType findStructureTypeById(Long id);
 }

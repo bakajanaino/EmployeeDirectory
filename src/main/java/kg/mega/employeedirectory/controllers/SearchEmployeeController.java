@@ -16,11 +16,11 @@ public class SearchEmployeeController {
         this.searchEmployeeService = searchEmployeeService;
     }
     @GetMapping("/findByPhoneNumber")
-    public List<EmployeeInfoDto> findByPhone(@RequestParam String phoneNumber)throws Exception{
+    public ResponseEntity<?>  findByPhone(@RequestParam String phoneNumber)throws Exception{
         return searchEmployeeService.findEmployeeByPhoneNumber(phoneNumber);
     }
     @GetMapping("/findByEmail")
-    public List<EmployeeInfoDto> findByEmail(@RequestParam String email) throws Exception {
+    public ResponseEntity<?>  findByEmail(@RequestParam String email) throws Exception {
         return searchEmployeeService.findEmployeeByEmail(email);
 
     }
@@ -30,17 +30,17 @@ public class SearchEmployeeController {
         return null;
     }
     @GetMapping("/findByPosition")
-    public List<EmployeeInfoDto> findByPosition(@RequestParam String positionName) throws Exception {
+    public ResponseEntity<?>  findByPosition(@RequestParam String positionName) throws Exception {
         return searchEmployeeService.findEmployeesByPositionNameIgnoreCase(positionName);
     }
 
     @GetMapping("/findByStructure")
-    public List<EmployeeInfoDto> findByStructure(@RequestParam String structureName) throws Exception {
+    public ResponseEntity<?>  findByStructure(@RequestParam String structureName) throws Exception {
         return searchEmployeeService.findEmployeesByStructureNameIgnoreCase(structureName);
     }
 
     @GetMapping("/fullInfoByName")
-    public List<EmployeeInfoDto> fullInfoByName(String fullName) throws Exception{
+    public ResponseEntity<?>  fullInfoByName(String fullName) throws Exception{
         return searchEmployeeService.getFullEmployeeInfoByName(fullName);
     }
 

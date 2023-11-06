@@ -11,5 +11,4 @@ public class AuthRequestDto {
         this.username=username;
         this.password=password;
     }
-    public AuthRequestDto(){}
 }

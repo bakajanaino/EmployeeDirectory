@@ -20,7 +20,5 @@ public class EmployeePosition {
     Position position;
     @ManyToOne
     Structure structure;
-    LocalDate startDate;
-    LocalDate endDate;
 }
 

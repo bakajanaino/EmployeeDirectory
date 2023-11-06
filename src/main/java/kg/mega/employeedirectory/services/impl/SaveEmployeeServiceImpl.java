@@ -32,7 +32,6 @@ public class SaveEmployeeServiceImpl implements SaveEmployeeService {
                 if (employeeSaveDto.getEmail().contains("@") && employeeSaveDto.getEmail().contains(".")) {
                     employeeSaveDto.setStatus(employeeSaveDto.getStatus().toUpperCase());
                     employeeSaveDto.setFamilyStatus(employeeSaveDto.getFamilyStatus().toUpperCase());
-
                     try {
                         Status status = Status.valueOf(employeeSaveDto.getStatus());
                         FamilyStatus familyStatus = FamilyStatus.valueOf(employeeSaveDto.getFamilyStatus());
@@ -52,7 +51,6 @@ public class SaveEmployeeServiceImpl implements SaveEmployeeService {
                         employeeRepo.save(employee);
                         employeePositionRepo.save(employeePosition);
                         return ResponseEntity.ok("Сотрудник успешно сохранен!");
-
                     } catch (IllegalArgumentException e) {
                         return ResponseEntity.badRequest().body("Указанный статус не существует.");
                     }

@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface StructureRepo extends JpaRepository<Structure, Long> {
     Structure findStructureByName(String structureName);
+    Structure findStructureById(Long id);
+
+
 }

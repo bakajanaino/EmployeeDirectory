@@ -10,4 +10,6 @@ import java.util.List;
 public interface EmployeePositionRepo extends JpaRepository<EmployeePosition, Long> {
    List <EmployeePosition> findEmployeePositionByEmployeeFullNameContainingIgnoreCase(String fullName);
 
+   EmployeePosition findEmployeePositionByEmployee(Employee employee);
+
 }

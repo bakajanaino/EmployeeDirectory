@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PositionRepo extends JpaRepository<Position, Long> {
     Position findPositionByName(String positionName);
+    Position findPositionById(Long id);
+
 }
