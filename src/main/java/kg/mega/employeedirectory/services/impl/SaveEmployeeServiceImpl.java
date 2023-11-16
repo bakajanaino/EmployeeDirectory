@@ -24,39 +24,38 @@ public class SaveEmployeeServiceImpl implements SaveEmployeeService {
     private final StructureRepo structureRepo;
 
 
-
     @Override
     public ResponseEntity<?> saveEmployee(EmployeeSaveDto employeeSaveDto) {
-        if (employeeSaveDto.getFullName().length() >= 2 && employeeSaveDto.getFullName().length() <= 50) {
-            if (employeeSaveDto.getPhoneNumber().startsWith("+996")) {
-                if (employeeSaveDto.getEmail().contains("@") && employeeSaveDto.getEmail().contains(".")) {
-                    employeeSaveDto.setStatus(employeeSaveDto.getStatus().toUpperCase());
-                    employeeSaveDto.setFamilyStatus(employeeSaveDto.getFamilyStatus().toUpperCase());
-                    try {
-                        Status status = Status.valueOf(employeeSaveDto.getStatus());
-                        FamilyStatus familyStatus = FamilyStatus.valueOf(employeeSaveDto.getFamilyStatus());
-                        Employee employee = new Employee();
-                        EmployeePosition employeePosition = new EmployeePosition();
-                        employee.setStatus(status);
-                        employee.setFamilyStatus(familyStatus);
-                        employee.setFullName(employeeSaveDto.getFullName());
-                        employee.setEmail(employeeSaveDto.getEmail());
-                        employee.setEmploymentDate(LocalDate.now());
-                        employee.setPhoneNumber(employeeSaveDto.getPhoneNumber());
-                        employeePosition.setEmployee(employee);
-                        Position position = positionRepo.findPositionByName(employeeSaveDto.getPositionName());
-                        employeePosition.setPosition(position);
-                        Structure structure = structureRepo.findStructureByName(employeeSaveDto.getStructureName());
-                        employeePosition.setStructure(structure);
-                        employeeRepo.save(employee);
-                        employeePositionRepo.save(employeePosition);
-                        return ResponseEntity.ok("Сотрудник успешно сохранен!");
-                    } catch (IllegalArgumentException e) {
-                        return ResponseEntity.badRequest().body("Указанный статус не существует.");
-                    }
-                }
+        if (employeeRepo.findEmployeeByFullNameIgnoreCase(employeeSaveDto.getFullName()) == null) {
+
+            employeeSaveDto.setStatus(employeeSaveDto.getStatus().toUpperCase());
+            employeeSaveDto.setFamilyStatus(employeeSaveDto.getFamilyStatus().toUpperCase());
+            try {
+                Status status = Status.valueOf(employeeSaveDto.getStatus());
+                FamilyStatus familyStatus = FamilyStatus.valueOf(employeeSaveDto.getFamilyStatus());
+                Employee employee = new Employee();
+                EmployeePosition employeePosition = new EmployeePosition();
+                employee.setStatus(status);
+                employee.setFamilyStatus(familyStatus);
+                employee.setPhotoUrl(employeeSaveDto.getPhotoUrl());
+                employee.setFullName(employeeSaveDto.getFullName());
+                employee.setEmail(employeeSaveDto.getEmail());
+                employee.setEmploymentDate(LocalDate.now());
+                employee.setPhoneNumber(employeeSaveDto.getPhoneNumber());
+                employeePosition.setEmployee(employee);
+                employee.setAddress(employeeSaveDto.getAddress());
+                employee.setDateOfBirth(employeeSaveDto.getDateOfBirth());
+                Position position = positionRepo.findPositionByName(employeeSaveDto.getPositionName());
+                employeePosition.setPosition(position);
+                Structure structure = structureRepo.findStructureByName(employeeSaveDto.getStructureName());
+                employeePosition.setStructure(structure);
+                employeeRepo.save(employee);
+                employeePositionRepo.save(employeePosition);
+                return ResponseEntity.ok("Сотрудник успешно сохранен!");
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.badRequest().body("Указанный статус не существует.");
             }
         }
-        return ResponseEntity.badRequest().body("Данные указаны неверно!");
+        return ResponseEntity.badRequest().body("Сотрудник с таким именем уже существует.");
     }
 }

@@ -6,6 +6,9 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -28,6 +31,8 @@ public class Employee {
     Status status;
     @Enumerated(EnumType.STRING)
     FamilyStatus familyStatus;
+    String address;
+    LocalDate dateOfBirth;
 
 
 }

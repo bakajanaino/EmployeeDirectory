@@ -4,6 +4,8 @@ import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
@@ -21,4 +23,6 @@ public class Structure {
     @OneToOne
     @JoinColumn(name = "parent_structure_id")
     Structure parentStructure;
+    LocalDate startDate;
+    LocalDate endDate;
 }

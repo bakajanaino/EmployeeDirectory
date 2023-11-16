@@ -16,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class EditEmployeeServiceImpl implements EditEmployeeService {
@@ -29,13 +31,18 @@ public class EditEmployeeServiceImpl implements EditEmployeeService {
         if(employee == null){
             return ResponseEntity.badRequest().body("Сотрудник не найден.");
         }
-
+        if(employeeEditDto.getAddress() != null){
+            employee.setAddress(employeeEditDto.getAddress());
+        }
+        if(employeeEditDto.getDateOfBirth() != null){
+            employee.setDateOfBirth(employeeEditDto.getDateOfBirth());
+        }
         if(employeeEditDto.getPhoneNumber() != null){
             employee.setPhoneNumber(employeeEditDto.getPhoneNumber());
         }
         if(employeeEditDto.getEmail() != null) {
             employee.setPhoneNumber(employeeEditDto.getPhoneNumber());
-    }
+        }
         if(employeeEditDto.getStatus() != null) {
             try {
                 employeeEditDto.setStatus(employeeEditDto.getStatus().toUpperCase());

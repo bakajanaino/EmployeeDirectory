@@ -5,14 +5,14 @@ import kg.mega.employeedirectory.models.StructureType;
 import kg.mega.employeedirectory.models.dtos.StructureDto;
 import kg.mega.employeedirectory.repos.StructureRepo;
 import kg.mega.employeedirectory.repos.StructureTypeRepo;
-import kg.mega.employeedirectory.services.StructureEditService;
+import kg.mega.employeedirectory.services.EditStructureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class StructureEditServiceImpl implements StructureEditService {
+public class EditStructureServiceImpl implements EditStructureService {
     private final StructureRepo structureRepo;
     private final StructureTypeRepo structureTypeRepo;
 

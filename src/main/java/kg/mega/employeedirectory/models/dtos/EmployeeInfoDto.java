@@ -21,6 +21,8 @@ public class EmployeeInfoDto {
     String photoUrl;
     LocalDate hireDate;
     LocalDate dismissalDate;
+    String address;
+    LocalDate dateOfBirth;
 
 
     public EmployeeInfoDto(Employee employee, EmployeePosition position, Structure structure, FamilyStatus familyStatus, Status status) {
@@ -35,7 +37,7 @@ public class EmployeeInfoDto {
         this.dismissalDate=employee.getDismissalDate();
         this.status=status;
         this.familyStatus=familyStatus;
+        this.address=employee.getAddress();
+        this.dateOfBirth=employee.getDateOfBirth();
     }
-    public EmployeeInfoDto(){}
-
 }
