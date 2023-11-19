@@ -23,6 +23,4 @@ public class Structure {
     @OneToOne
     @JoinColumn(name = "parent_structure_id")
     Structure parentStructure;
-    LocalDate startDate;
-    LocalDate endDate;
 }

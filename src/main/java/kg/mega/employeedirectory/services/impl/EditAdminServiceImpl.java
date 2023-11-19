@@ -53,7 +53,7 @@ public class EditAdminServiceImpl implements EditAdminService {
         if(admin.getRole().equals(Role.ADMIN)){
             admin.setRole(Role.DISABLED);
             adminRepo.save(admin);
-            return ResponseEntity.ok("Роль админа именена на DISABLED.");
+            return ResponseEntity.ok("Роль админа изменена на DISABLED.");
         }
         else {
             admin.setRole(Role.ADMIN);

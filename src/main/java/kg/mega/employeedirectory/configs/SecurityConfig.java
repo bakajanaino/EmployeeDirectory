@@ -1,10 +1,13 @@
 package kg.mega.employeedirectory.configs;
 
 
+import kg.mega.employeedirectory.models.enums.Permission;
+import kg.mega.employeedirectory.models.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -36,9 +39,14 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
-                .anyRequest().authenticated()
-                     .and().httpBasic(Customizer.withDefaults())
-                             .authenticationProvider(daoAuthenticationProvider());
+                     .antMatchers(HttpMethod.POST, "api/v1/admin/**").hasAuthority(Permission.SUPER_ADMIN.getPermission())
+                     .antMatchers(HttpMethod.PUT, "api/v1/admin/**").hasAuthority(Permission.SUPER_ADMIN.getPermission())
+                     .antMatchers(HttpMethod.POST).hasAuthority(Permission.ADMIN_WRITE.getPermission())
+                     .antMatchers(HttpMethod.PUT).hasAuthority(Permission.ADMIN_EDIT.getPermission())
+                     .antMatchers(HttpMethod.GET).permitAll()
+
+                                .and().httpBasic(Customizer.withDefaults())
+                                .authenticationProvider(daoAuthenticationProvider());
 
             return http.build();
     }

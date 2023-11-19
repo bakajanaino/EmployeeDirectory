@@ -20,8 +20,6 @@ public class SearchEmployeeServiceImpl implements SearchEmployeeService {
     public SearchEmployeeServiceImpl(EmployeeRepo employeeRepo, EmployeePositionRepo employeePositionRepo) {
         this.employeeRepo = employeeRepo;
         this.employeePositionRepo = employeePositionRepo;
-
-
     }
 
     @Override
